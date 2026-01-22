@@ -3,7 +3,7 @@ import heapq
 import math
 import time
 
-
+# Define the MRT graph structure
 class MRTGraph:
     def __init__(self):
         self.edges = defaultdict(list)
