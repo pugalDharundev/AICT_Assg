@@ -3,7 +3,9 @@ import heapq
 import math
 import time
 
-# Define the MRT graph structure
+# =========================
+# MRT GRAPH DEFINITION
+# =========================
 class MRTGraph:
     def __init__(self):
         self.edges = defaultdict(list)
@@ -12,29 +14,29 @@ class MRTGraph:
     def add_station(self, name, x, y):
         self.coords[name] = (x, y)
 
-    def add_connection(self, a, b, time):
-        self.edges[a].append((b, time))
-        self.edges[b].append((a, time))
+    def add_connection(self, a, b, travel_time, crowded=False, transfer=False):
+        self.edges[a].append((b, travel_time, crowded, transfer))
+        self.edges[b].append((a, travel_time, crowded, transfer))
+
+
+# =========================
+# COST & HEURISTIC
+# =========================
+def compute_cost(travel_time, transfer=False, crowded=False):
+    transfer_penalty = 3 if transfer else 0
+    crowd_penalty = 5 if crowded else 0
+    return travel_time + transfer_penalty + crowd_penalty
 
 
 def heuristic(graph, a, b):
     x1, y1 = graph.coords[a]
     x2, y2 = graph.coords[b]
-    return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
-def compute_cost(travel_time, transfers=0, crowded=False):
-    """
-    Cost function:
-    - travel_time: minutes between stations
-    - transfers: number of line transfers
-    - crowded: whether the segment is crowded
-    """
-    transfer_penalty = 3 * transfers
-    crowd_penalty = 5 if crowded else 0
-    return travel_time + transfer_penalty + crowd_penalty
-
-
+# =========================
+# SEARCH ALGORITHMS
+# =========================
 
 def bfs(graph, start, goal):
     queue = deque([(start, [start], 0)])
@@ -50,10 +52,11 @@ def bfs(graph, start, goal):
 
         if node not in visited:
             visited.add(node)
-            for nxt, w in graph.edges[node]:
-                queue.append((nxt, path + [nxt], cost + w))
+            for nxt, t, c, tr in graph.edges[node]:
+                new_cost = cost + compute_cost(t, tr, c)
+                queue.append((nxt, path + [nxt], new_cost))
 
-    return None, float('inf'), expanded
+    return None, float("inf"), expanded
 
 
 def dfs(graph, start, goal):
@@ -70,10 +73,11 @@ def dfs(graph, start, goal):
 
         if node not in visited:
             visited.add(node)
-            for nxt, w in graph.edges[node]:
-                stack.append((nxt, path + [nxt], cost + w))
+            for nxt, t, c, tr in graph.edges[node]:
+                new_cost = cost + compute_cost(t, tr, c)
+                stack.append((nxt, path + [nxt], new_cost))
 
-    return None, float('inf'), expanded
+    return None, float("inf"), expanded
 
 
 def gbfs(graph, start, goal):
@@ -90,11 +94,12 @@ def gbfs(graph, start, goal):
 
         if node not in visited:
             visited.add(node)
-            for nxt, w in graph.edges[node]:
+            for nxt, t, c, tr in graph.edges[node]:
                 h = heuristic(graph, nxt, goal)
-                heapq.heappush(pq, (h, nxt, path + [nxt], cost + w))
+                new_cost = cost + compute_cost(t, tr, c)
+                heapq.heappush(pq, (h, nxt, path + [nxt], new_cost))
 
-    return None, float('inf'), expanded
+    return None, float("inf"), expanded
 
 
 def astar(graph, start, goal):
@@ -111,14 +116,17 @@ def astar(graph, start, goal):
 
         if node not in visited or g < visited[node]:
             visited[node] = g
-            for nxt, w in graph.edges[node]:
-                g_new = g + w
+            for nxt, t, c, tr in graph.edges[node]:
+                g_new = g + compute_cost(t, tr, c)
                 f_new = g_new + heuristic(graph, nxt, goal)
                 heapq.heappush(pq, (f_new, g_new, nxt, path + [nxt]))
 
-    return None, float('inf'), expanded
+    return None, float("inf"), expanded
 
 
+# =========================
+# NETWORK MODES
+# =========================
 def build_today_mode():
     g = MRTGraph()
 
@@ -127,18 +135,28 @@ def build_today_mode():
         "Expo": (9, 3),
         "Tanah Merah": (8, 4),
         "Paya Lebar": (7, 5),
+        "Bugis": (6, 6),
         "City Hall": (5, 6),
-        "Orchard": (4, 7)
+        "Orchard": (4, 7),
+        "Bishan": (4, 9),
+        "HarbourFront": (2, 5),
+        "Tampines": (8, 3),
+        "Gardens by the Bay": (5, 4)
     }
 
     for s, (x, y) in stations.items():
         g.add_station(s, x, y)
 
-    g.add_connection("Changi Airport", "Expo", 5)
+    g.add_connection("Changi Airport", "Expo", 5, crowded=True)
     g.add_connection("Expo", "Tanah Merah", 4)
-    g.add_connection("Tanah Merah", "Paya Lebar", 6)
-    g.add_connection("Paya Lebar", "City Hall", 8)
+    g.add_connection("Tanah Merah", "Paya Lebar", 6, transfer=True)
+    g.add_connection("Paya Lebar", "Bugis", 5)
+    g.add_connection("Bugis", "City Hall", 2)
     g.add_connection("City Hall", "Orchard", 4)
+    g.add_connection("City Hall", "Gardens by the Bay", 3)
+    g.add_connection("Bugis", "Bishan", 7)
+    g.add_connection("HarbourFront", "City Hall", 6)
+    g.add_connection("Tampines", "Tanah Merah", 5)
 
     return g
 
@@ -150,11 +168,15 @@ def build_future_mode():
     g.add_station("Sungei Bedok", 9, 1)
 
     g.add_connection("Changi Terminal 5", "Sungei Bedok", 5)
-    g.add_connection("Changi Terminal 5", "Tanah Merah", 6)
+    g.add_connection("Sungei Bedok", "Tanah Merah", 6, transfer=True)
+    g.add_connection("Changi Terminal 5", "Changi Airport", 4)
 
     return g
 
 
+# =========================
+# MAIN EXPERIMENT
+# =========================
 if __name__ == "__main__":
 
     graphs = {
@@ -162,24 +184,21 @@ if __name__ == "__main__":
         "Future Mode": build_future_mode()
     }
 
-    od_pairs_today = [
-        ("Changi Airport", "City Hall"),
-        ("Changi Airport", "Orchard"),
-        ("Paya Lebar", "Tanah Merah"),
-        ("Changi Airport", "Expo"),
-    ]
-
-    od_pairs_future = [
-        ("Changi Airport", "City Hall"),
-        ("Changi Airport", "Orchard"),
-        ("Paya Lebar", "Tanah Merah"),
-        ("Changi Airport", "Expo"),
-        ("Tanah Merah", "Changi Terminal 5")
-    ]
-
-    od_pairs_by_mode = {
-        "Today Mode": od_pairs_today,
-        "Future Mode": od_pairs_future
+    od_pairs = {
+        "Today Mode": [
+            ("Changi Airport", "City Hall"),
+            ("Changi Airport", "Orchard"),
+            ("Changi Airport", "Gardens by the Bay"),
+            ("Changi Airport", "HarbourFront"),
+            ("Changi Airport", "Bishan")
+        ],
+        "Future Mode": [
+            ("Changi Terminal 5", "City Hall"),
+            ("Changi Terminal 5", "Orchard"),
+            ("Changi Terminal 5", "Gardens by the Bay"),
+            ("Changi Terminal 5", "HarbourFront"),
+            ("Changi Terminal 5", "Bishan")
+        ]
     }
 
     algorithms = {
@@ -194,7 +213,7 @@ if __name__ == "__main__":
         print(mode)
         print("==============================")
 
-        for start, goal in od_pairs_by_mode[mode]:
+        for start, goal in od_pairs[mode]:
             print(f"\nRoute: {start} → {goal}")
 
             for name, algo in algorithms.items():
@@ -204,6 +223,6 @@ if __name__ == "__main__":
 
                 print(f"\n{name}")
                 print(" Path:", path)
-                print(" Travel Cost:", cost)
+                print(" Total Cost:", cost)
                 print(" Expanded Nodes:", expanded)
                 print(" Runtime:", round(runtime, 6), "seconds")
