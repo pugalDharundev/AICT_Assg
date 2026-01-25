@@ -253,30 +253,53 @@ def build_today_mode():
 def build_future_mode():
     """
     Build Future Mode network with TELe and CRL extensions.
-    Incorporates:
-    - TELe: Sungei Bedok → T5 → Tanah Merah (converted from EWL)
-    - CRL extension to T5
-    - Conversion of Tanah Merah–Expo–Changi Airport to TEL systems
+    
+    Key Changes from Today Mode (per LTA July 2025 announcement):
+    1. TELe Extension: New 14-km line from Sungei Bedok → T5 → Tanah Merah
+    2. EWL-to-TEL Conversion: Tanah Merah–Expo–Changi Airport stations converted to TEL systems
+    3. CRL Extension: 5.8-km extension from Punggol Digital District to T5
+    4. New T5 Interchange: TE32/CR1 connecting TEL and CRL
+    
+    Network Changes:
+    - Old EWL airport branch (Changi Airport → Expo → Tanah Merah) REMOVED from EWL
+    - Same stations now operated under TEL system with updated connections
+    - T5 becomes major interchange hub connecting TEL, CRL, and airport access
     """
     g = build_today_mode()
-
-    # New stations for TEL/CRL
-    g.add_station("Changi Terminal 5", 11, 2)
-    g.add_station("Sungei Bedok", 9, 1)
-    g.add_station("Bedok", 9.5, 2)
-    g.add_station("Punggol Digital District", 11, 7)  # CRL extension
-
-    # TEL Extension (Sungei Bedok → T5 → Tanah Merah conversion)
-    g.add_connection("Sungei Bedok", "Bedok", 3)
-    g.add_connection("Bedok", "Changi Terminal 5", 4)
-    g.add_connection("Changi Terminal 5", "Expo", 5, transfer=True)  # TEL connection
-    g.add_connection("Expo", "Tanah Merah", 4)  # Now part of TEL
     
-    # Changi Airport to T5 (converted to TEL)
-    g.add_connection("Changi Airport", "Changi Terminal 5", 4)
+    # ==== STEP 1: REMOVE OLD EWL AIRPORT BRANCH ====
+    # These connections will be replaced by TEL system
+    # Remove: Changi Airport ↔ Expo
+    g.edges["Changi Airport"] = [e for e in g.edges["Changi Airport"] if e[0] != "Expo"]
+    g.edges["Expo"] = [e for e in g.edges["Expo"] if e[0] != "Changi Airport"]
     
-    # CRL Extension to T5
+    # Remove: Expo ↔ Tanah Merah (old EWL connection)
+    # Note: We keep other Expo connections, only remove the old EWL link to Tanah Merah
+    g.edges["Expo"] = [e for e in g.edges["Expo"] if e[0] != "Tanah Merah"]
+    g.edges["Tanah Merah"] = [e for e in g.edges["Tanah Merah"] if e[0] != "Expo"]
+
+    # ==== STEP 2: ADD NEW TEL/CRL STATIONS ====
+    g.add_station("Changi Terminal 5", 11, 2)      # New TE32/CR1 interchange
+    g.add_station("Sungei Bedok", 9, 1)            # TEL extension start
+    g.add_station("Bedok South", 9.5, 2)           # Intermediate TEL station
+    g.add_station("Punggol Digital District", 8, 8)  # CRL extension point
+
+    # ==== STEP 3: BUILD TEL EXTENSION (SUNGEI BEDOK → T5 → TANAH MERAH) ====
+    # New TEL corridor from west
+    g.add_connection("Sungei Bedok", "Bedok South", 3)
+    g.add_connection("Bedok South", "Changi Terminal 5", 4)
+    
+    # T5 to converted TEL stations (formerly EWL)
+    g.add_connection("Changi Terminal 5", "Changi Airport", 4)  # T5 ↔ Airport (now TEL)
+    g.add_connection("Changi Airport", "Expo", 5, crowded=True)  # Now part of TEL system
+    g.add_connection("Expo", "Tanah Merah", 4)  # Completes TEL conversion
+    
+    # ==== STEP 4: ADD CRL EXTENSION TO T5 ====
     g.add_connection("Punggol Digital District", "Changi Terminal 5", 8, transfer=True)
+    
+    # ==== STEP 5: OPTIONAL INTEGRATION CONNECTIONS ====
+    # Better connectivity from T5 to existing network
+    g.add_connection("Changi Terminal 5", "Tampines", 6, transfer=True)  # Direct access to EWL
 
     return g
 
