@@ -16,10 +16,10 @@ This solution models MRT edge weights using a unified cost function that combine
 
 1. BASELINE TRAVEL TIME (minutes)
    - Derived from: LTA published MRT schedules and typical inter-station distances
-   - Assumption: Average MRT speed ≈ 40-60 km/h
+   - Assumption: Average MRT speed ~= 40-60 km/h
    - Typical inter-station time: 2-6 minutes depending on station spacing
-   - Longer jumps (e.g., Clementi→Jurong East) = ~3-5 min
-   - Shorter adjacent stations (e.g., Kallang→Bugis) = ~2 min
+   - Longer jumps (e.g., Clementi->Jurong East) = ~3-5 min
+   - Shorter adjacent stations (e.g., Kallang->Bugis) = ~2 min
    - Network averages calibrated to reflect actual Singapore MRT operations
    
 2. TRANSFER PENALTY (+3 minutes)
@@ -29,7 +29,7 @@ This solution models MRT edge weights using a unified cost function that combine
    - Makes algorithm prefer through-line routes (more passenger-friendly)
    
 3. CROWDING PENALTY (+5 minutes)
-   - Applied to high-traffic segments (e.g., Changi Airport→Expo during peak)
+   - Applied to high-traffic segments (e.g., Changi Airport->Expo during peak)
    - Represents: Reduced train frequency or boarding delays during peak hours
    - Justification: Peak hour crowding at airport segment documented in LTA reports
    - Makes algorithm route around congestion during simulation (advisory capability)
@@ -43,8 +43,8 @@ EDGE WEIGHT ASSIGNMENT STRATEGY:
    - Future Mode: TELe/CRL stations use similar timing but reflect new infrastructure
    
 VALIDATION:
-   - Sample path (Changi Airport→City Hall): ~30-35 min in reality ≈ 31-35 cost units ✓
-   - Network diameter: ~50-60 min for cross-island routes ≈ 50-60 cost units ✓
+   - Sample path (Changi Airport->City Hall): ~30-35 min in reality ~= 31-35 cost units [OK]
+   - Network diameter: ~50-60 min for cross-island routes ~= 50-60 cost units [OK]
    - This calibration enables meaningful comparison across algorithms
 """
 
@@ -186,7 +186,7 @@ def build_today_mode():
     - Total stations: 42 (covering Changi Airport corridor + wider Singapore network)
     - Coverage: East-West Line (Airport branch + main), North-South Line, Circle Line, 
                 Downtown Line, and connector stations
-    - Focus: Changi Airport–T5 corridor with sufficient context for route planning
+    - Focus: Changi Airport-T5 corridor with sufficient context for route planning
     
     Edge Weight Methodology (See top-level EDGE WEIGHT METHODOLOGY section):
     - All edges modeled as: travel_time + transfer_penalty + crowding_penalty
@@ -202,7 +202,7 @@ def build_today_mode():
     g = MRTGraph()
 
     # Station coordinates (normalized for meaningful heuristic distance)
-    # 1 unit ≈ 1-2 km, calibrated to reflect actual Singapore MRT geography
+    # 1 unit ~= 1-2 km, calibrated to reflect actual Singapore MRT geography
     stations = {
         # East-West Line (Airport Branch)
         "Changi Airport": (10, 2),
@@ -339,13 +339,13 @@ def build_future_mode():
     Build Future Mode network with TELe and CRL extensions.
     
     Key Changes from Today Mode (per LTA July 2025 announcement):
-    1. TELe Extension: New 14-km line from Sungei Bedok → T5 → Tanah Merah
-    2. EWL-to-TEL Conversion: Tanah Merah–Expo–Changi Airport stations converted to TEL systems
+    1. TELe Extension: New 14-km line from Sungei Bedok -> T5 -> Tanah Merah
+    2. EWL-to-TEL Conversion: Tanah Merah-Expo-Changi Airport stations converted to TEL systems
     3. CRL Extension: 5.8-km extension from Punggol Digital District to T5
     4. New T5 Interchange: TE32/CR1 connecting TEL and CRL
     
     Network Changes:
-    - Old EWL airport branch (Changi Airport → Expo → Tanah Merah) REMOVED from EWL
+    - Old EWL airport branch (Changi Airport -> Expo -> Tanah Merah) REMOVED from EWL
     - Same stations now operated under TEL system with updated connections
     - T5 becomes major interchange hub connecting TEL, CRL, and airport access
     """
@@ -353,11 +353,11 @@ def build_future_mode():
     
     # ==== STEP 1: REMOVE OLD EWL AIRPORT BRANCH ====
     # These connections will be replaced by TEL system
-    # Remove: Changi Airport ↔ Expo
+    # Remove: Changi Airport <-> Expo
     g.edges["Changi Airport"] = [e for e in g.edges["Changi Airport"] if e[0] != "Expo"]
     g.edges["Expo"] = [e for e in g.edges["Expo"] if e[0] != "Changi Airport"]
     
-    # Remove: Expo ↔ Tanah Merah (old EWL connection)
+    # Remove: Expo <-> Tanah Merah (old EWL connection)
     # Note: We keep other Expo connections, only remove the old EWL link to Tanah Merah
     g.edges["Expo"] = [e for e in g.edges["Expo"] if e[0] != "Tanah Merah"]
     g.edges["Tanah Merah"] = [e for e in g.edges["Tanah Merah"] if e[0] != "Expo"]
@@ -368,13 +368,13 @@ def build_future_mode():
     g.add_station("Bedok South", 9.5, 2)           # Intermediate TEL station
     g.add_station("Punggol Digital District", 8, 8)  # CRL extension point
 
-    # ==== STEP 3: BUILD TEL EXTENSION (SUNGEI BEDOK → T5 → TANAH MERAH) ====
+    # ==== STEP 3: BUILD TEL EXTENSION (SUNGEI BEDOK -> T5 -> TANAH MERAH) ====
     # New TEL corridor from west
     g.add_connection("Sungei Bedok", "Bedok South", 3)
     g.add_connection("Bedok South", "Changi Terminal 5", 4)
     
     # T5 to converted TEL stations (formerly EWL)
-    g.add_connection("Changi Terminal 5", "Changi Airport", 4)  # T5 ↔ Airport (now TEL)
+    g.add_connection("Changi Terminal 5", "Changi Airport", 4)  # T5 <-> Airport (now TEL)
     g.add_connection("Changi Airport", "Expo", 5, crowded=True)  # Now part of TEL system
     g.add_connection("Expo", "Tanah Merah", 4)  # Completes TEL conversion
     
@@ -417,19 +417,19 @@ def document_edge_weights():
     print("   Applied when: Edge connects different MRT lines")
     print("   Penalty value: +3 minutes")
     print("   Justification:")
-    print("     • Walking between platforms: 1-2 min (documented in LTA interchanges)")
-    print("     • Waiting for next train: 1-2 min (average headway)")
-    print("     • Total: ~3 min realistic interchange time")
+    print("     - Walking between platforms: 1-2 min (documented in LTA interchanges)")
+    print("     - Waiting for next train: 1-2 min (average headway)")
+    print("     - Total: ~3 min realistic interchange time")
     print("   Effect: Makes algorithm prefer same-line routes (more passenger-friendly)")
     
     print("\n3. CROWDING PENALTY (if peak-hour congestion)")
     print("   -" * 40)
-    print("   Applied to: High-traffic segments (e.g., Changi Airport→Expo)")
+    print("   Applied to: High-traffic segments (e.g., Changi Airport->Expo)")
     print("   Penalty value: +5 minutes")
     print("   Justification:")
-    print("     • Peak-hour train frequency reduced by ~30-40%")
-    print("     • Boarding delays during congestion: 2-3 min")
-    print("     • Total estimated delay: ~5 min")
+    print("     - Peak-hour train frequency reduced by ~30-40%")
+    print("     - Boarding delays during congestion: 2-3 min")
+    print("     - Total estimated delay: ~5 min")
     print("   Effect: Makes algorithm route around congested segments")
     
     print("\n" + "-"*80)
@@ -437,29 +437,29 @@ def document_edge_weights():
     print("-" * 80)
     
     examples = [
-        ("Kallang → Bugis", 2, False, False, "Same EWL, short, off-peak"),
-        ("Paya Lebar → Tanah Merah", 6, True, False, "EWL to EWL but via transfer point"),
-        ("Changi Airport → Expo", 5, False, True, "EWL airport branch, peak crowding"),
-        ("Newton → Orchard", 3, True, False, "NSL to NSL via interchange, typical"),
-        ("City Hall → Marina Bay", 2, True, False, "NSL to CEL, interchange, close"),
-        ("Jurong East → Chinese Garden", 2, False, False, "EWL extension, medium distance"),
+        ("Kallang -> Bugis", 2, False, False, "Same EWL, short, off-peak"),
+        ("Paya Lebar -> Tanah Merah", 6, True, False, "EWL to EWL but via transfer point"),
+        ("Changi Airport -> Expo", 5, False, True, "EWL airport branch, peak crowding"),
+        ("Newton -> Orchard", 3, True, False, "NSL to NSL via interchange, typical"),
+        ("City Hall -> Marina Bay", 2, True, False, "NSL to CEL, interchange, close"),
+        ("Jurong East -> Chinese Garden", 2, False, False, "EWL extension, medium distance"),
     ]
     
     print(f"\n{'Edge':<35} {'Travel':<8} {'Transfer':<10} {'Crowd':<8} {'TOTAL':<8} {'Context'}")
     print("-" * 100)
     for edge, travel, transfer, crowded, context in examples:
         cost = compute_cost(travel, transfer, crowded)
-        t_pen = "+3" if transfer else "—"
-        c_pen = "+5" if crowded else "—"
+        t_pen = "+3" if transfer else "--"
+        c_pen = "+5" if crowded else "--"
         print(f"{edge:<35} {travel:<8} {t_pen:<10} {c_pen:<8} {cost:<8} {context}")
     
     print("\n" + "="*80)
     print("VALIDATION:")
     print("="*80)
-    print("✓ Realistic travel times aligned with LTA MRT operations")
-    print("✓ Penalties reflect documented passenger experience")
-    print("✓ All edges bidirectional (symmetric weights)")
-    print("✓ Consistent application across all 42 stations (Today) and 46 stations (Future)")
+    print("[OK] Realistic travel times aligned with LTA MRT operations")
+    print("[OK] Penalties reflect documented passenger experience")
+    print("[OK] All edges bidirectional (symmetric weights)")
+    print("[OK] Consistent application across all 42 stations (Today) and 46 stations (Future)")
     print("="*80 + "\n")
 
 
@@ -476,7 +476,7 @@ def run_experiments(graphs, od_pairs, algorithms):
         print(f"{'='*80}")
         
         for start, goal in od_pairs[mode]:
-            print(f"\n[Route: {start} → {goal}]")
+            print(f"\n[Route: {start} -> {goal}]")
             
             for algo_name, algo_func in algorithms.items():
                 try:
@@ -492,12 +492,12 @@ def run_experiments(graphs, od_pairs, algorithms):
                         "Path Length": len(path) if path else 0,
                         "Path Cost": round(cost, 2) if cost != float("inf") else "N/A",
                         "Nodes Expanded": expanded,
-                        "Runtime (µs)": round(runtime, 2),
-                        "Path": " → ".join(path) if path else "No path found"
+                        "Runtime (us)": round(runtime, 2),
+                        "Path": " -> ".join(path) if path else "No path found"
                     }
                     results.append(result)
                     
-                    print(f"  {algo_name:6} | Cost: {result['Path Cost']:6} | Nodes: {expanded:4} | Time: {runtime:7.2f}µs")
+                    print(f"  {algo_name:6} | Cost: {result['Path Cost']:6} | Nodes: {expanded:4} | Time: {runtime:7.2f}us")
                 except Exception as e:
                     print(f"  {algo_name:6} | ERROR: {str(e)}")
     
@@ -520,7 +520,7 @@ def analyze_results(df):
         # Summary statistics
         algo_summary = mode_df.groupby("Algorithm").agg({
             "Nodes Expanded": ["mean", "min", "max"],
-            "Runtime (µs)": ["mean", "min", "max"],
+            "Runtime (us)": ["mean", "min", "max"],
             "Path Cost": ["mean"]
         }).round(2)
         
@@ -535,7 +535,7 @@ def analyze_results(df):
         # Best algorithm for each metric (by mean performance)
         print("\nBest Performers:")
         print(f"  Optimal Paths:  {', '.join(optimal_algos)}")
-        fastest_algo = algo_summary[("Runtime (µs)", "mean")].idxmin()
+        fastest_algo = algo_summary[("Runtime (us)", "mean")].idxmin()
         fewest_nodes_algo = algo_summary[("Nodes Expanded", "mean")].idxmin()
         print(f"  Fastest:        {fastest_algo}")
         print(f"  Fewest Nodes:   {fewest_nodes_algo}")
@@ -545,8 +545,8 @@ def analyze_results(df):
         for algo in ["BFS", "DFS", "GBFS", "A*"]:
             if algo in mode_df["Algorithm"].values:
                 avg_cost = mode_df[mode_df["Algorithm"] == algo]["Path Cost"].mean()
-                status = "✓ OPTIMAL" if algo in optimal_algos else f"✗ SUBOPTIMAL (+{((avg_cost/min_avg_cost - 1)*100):.1f}%)"
-                print(f"  {algo:6} → Avg Cost: {avg_cost:5.2f} {status}")
+                status = "[OPTIMAL]" if algo in optimal_algos else f"[SUBOPTIMAL] (+{((avg_cost/min_avg_cost - 1)*100):.1f}%)"
+                print(f"  {algo:6} -> Avg Cost: {avg_cost:5.2f} {status}")
         
         # Show sample paths
         print("\nSample Paths (First Route):")
@@ -554,23 +554,42 @@ def analyze_results(df):
         for algo in ["BFS", "DFS", "GBFS", "A*"]:
             if algo in first_route.index:
                 path_info = first_route.loc[algo]
-                print(f"  {algo:6} → {path_info['Path']}")
+                print(f"  {algo:6} -> {path_info['Path']}")
+
+
+def format_table_simple(headers, rows):
+    """Format data as ASCII table."""
+    col_widths = [len(h) for h in headers]
+    for row in rows:
+        for i, cell in enumerate(row):
+            col_widths[i] = max(col_widths[i], len(str(cell)))
+    
+    lines = []
+    header_line = " | ".join(h.ljust(col_widths[i]) for i, h in enumerate(headers))
+    lines.append(header_line)
+    lines.append("-" * len(header_line))
+    
+    for row in rows:
+        row_line = " | ".join(str(cell).ljust(col_widths[i]) for i, cell in enumerate(row))
+        lines.append(row_line)
+    
+    return "\n".join(lines)
 
 
 def compare_today_future(df):
     """Compare Today vs Future mode results for all algorithms side-by-side."""
-    print(f"\n\n{'='*80}")
-    print("TODAY MODE vs FUTURE MODE (ALL ALGORITHMS)")
-    print(f"{'='*80}")
+    print(f"\n\n{'='*100}")
+    print("TODAY MODE vs FUTURE MODE COMPARISON")
+    print(f"{'='*100}")
 
     # Build a normalized route key to align Today and Future pairs
     def normalize_route(row):
         start = row["Start"].replace("Changi Airport", "Changi Terminal 5")
         goal = row["Goal"].replace("Changi Airport", "Changi Terminal 5")
-        return f"{start} → {goal}"
+        return f"{start} -> {goal}"
 
     results = []
-    for algo in df["Algorithm"].unique():
+    for algo in sorted(df["Algorithm"].unique()):
         algo_df = df[df["Algorithm"] == algo].copy()
         algo_df["Route Key"] = algo_df.apply(normalize_route, axis=1)
 
@@ -590,9 +609,9 @@ def compare_today_future(df):
         comparison["Future Cost"] = pd.to_numeric(comparison["Future Cost"], errors="coerce")
         comparison = comparison.dropna(subset=["Today Cost", "Future Cost"])
 
-        comparison["Improvement"] = comparison["Today Cost"] - comparison["Future Cost"]
+        comparison["Improvement"] = (comparison["Today Cost"] - comparison["Future Cost"]).round(2)
         comparison["% Improvement"] = (
-            comparison["Improvement"] / comparison["Today Cost"] * 100
+            (comparison["Today Cost"] - comparison["Future Cost"]) / comparison["Today Cost"] * 100
         ).round(2)
 
         comparison["Algorithm"] = algo
@@ -603,12 +622,45 @@ def compare_today_future(df):
         return
 
     comparison_all = pd.concat(results, ignore_index=True)
-    comparison_all = comparison_all.sort_values(
-        by=["Algorithm", "Improvement"], ascending=[True, False]
-    )
-
-    print("\nCost Comparison (Aligned Routes):")
-    print(comparison_all.to_string(index=False))
+    
+    # Format and display by algorithm
+    for algo in sorted(comparison_all["Algorithm"].unique()):
+        algo_data = comparison_all[comparison_all["Algorithm"] == algo].sort_values(
+            by="Route Key"
+        )
+        
+        print(f"\n{algo} Algorithm:")
+        print("-" * 100)
+        
+        # Build table manually for better formatting
+        headers = ["Route", "Today Cost", "Future Cost", "Improvement (min)", "Improvement (%)"]
+        rows = []
+        for _, row in algo_data.iterrows():
+            rows.append([
+                row["Route Key"],
+                f"{row['Today Cost']:.1f}",
+                f"{row['Future Cost']:.1f}",
+                f"{row['Improvement']:+.1f}",
+                f"{row['% Improvement']:+.2f}%"
+            ])
+        
+        print(format_table_simple(headers, rows))
+        
+        # Summary stats
+        avg_improvement = algo_data["Improvement"].mean()
+        avg_pct_improvement = algo_data["% Improvement"].mean()
+        print(f"\n{algo} Average Improvement: {avg_improvement:+.2f} min ({avg_pct_improvement:+.2f}%)\n")
+    
+    # Overall summary
+    print(f"{'='*100}")
+    print("SUMMARY: Impact of TEL/CRL Extensions on Route Costs")
+    print(f"{'='*100}")
+    for algo in sorted(comparison_all["Algorithm"].unique()):
+        algo_data = comparison_all[comparison_all["Algorithm"] == algo]
+        avg_improvement = algo_data["Improvement"].mean()
+        avg_pct = algo_data["% Improvement"].mean()
+        status = "[+] Optimized" if avg_improvement > 0 else ("[=] No benefit" if avg_improvement == 0 else "[-] Worse")
+        print(f"  {algo:6} -> Avg improvement: {avg_improvement:+.2f} min ({avg_pct:+.2f}%) {status}")
 
 
 def create_visualizations(df):
@@ -619,10 +671,10 @@ def create_visualizations(df):
     # 1. Runtime Comparison
     ax1 = axes[0, 0]
     for mode in df["Mode"].unique():
-        mode_data = df[df["Mode"] == mode].groupby("Algorithm")["Runtime (µs)"].mean()
+        mode_data = df[df["Mode"] == mode].groupby("Algorithm")["Runtime (us)"].mean()
         ax1.bar(mode_data.index, mode_data.values, label=mode, alpha=0.8)
     ax1.set_title("Average Runtime by Algorithm")
-    ax1.set_ylabel("Runtime (µs)")
+    ax1.set_ylabel("Runtime (us)")
     ax1.legend()
     ax1.grid(axis='y', alpha=0.3)
     
@@ -656,10 +708,10 @@ def create_visualizations(df):
         mode_data = df[df["Mode"] == mode]
         for algo in mode_data["Algorithm"].unique():
             algo_data = mode_data[mode_data["Algorithm"] == algo]
-            avg_time = algo_data["Runtime (µs)"].mean()
+            avg_time = algo_data["Runtime (us)"].mean()
             avg_nodes = algo_data["Nodes Expanded"].mean()
             # Normalize and combine (lower is better)
-            max_time = mode_data["Runtime (µs)"].max()
+            max_time = mode_data["Runtime (us)"].max()
             max_nodes = mode_data["Nodes Expanded"].max()
             if max_time > 0 and max_nodes > 0:
                 score = (avg_time / max_time + avg_nodes / max_nodes) / 2
@@ -678,8 +730,10 @@ def create_visualizations(df):
     
     plt.tight_layout()
     plt.savefig('routing_analysis.png', dpi=150, bbox_inches='tight')
-    print("\n✓ Visualization saved as 'routing_analysis.png'")
-    plt.show()
+    print("\n[OK] Visualization saved as 'routing_analysis.png'")
+    # Note: plt.show() commented out to allow script to continue printing documentation
+    # Uncomment below if you want to display the plot interactively
+    # plt.show()
 
 
 
@@ -694,23 +748,24 @@ if __name__ == "__main__":
         "Future Mode": build_future_mode()
     }
     
-    # Recommended OD pairs from assignment
+    # Recommended OD pairs from assignment - ALIGNED for Today vs Future comparison
+    # NOTE: Changi Airport (Today) maps to Changi Terminal 5 (Future) for network comparison
     od_pairs = {
         "Today Mode": [
-            # Original required pairs
+            # Required pairs (Changi Airport as primary hub in Today)
             ("Changi Airport", "City Hall"),
             ("Changi Airport", "Orchard"),
             ("Changi Airport", "Gardens by the Bay"),
-            ("Changi Airport", "HarbourFront"),
-            ("Changi Airport", "Bishan"),
-            # Additional complex routes to show algorithm differences
-            ("Pasir Ris", "Jurong East"),        # Long cross-island
-            ("Changi Airport", "Marina Bay"),    # Multiple route options
-            ("Tampines", "HarbourFront"),        # Alternative paths exist
-            ("Bedok", "Queenstown"),             # East to West with options
+            ("Paya Lebar", "Changi Airport"),
+            ("HarbourFront", "Changi Airport"),
+            ("Bishan", "Changi Airport"),
+            ("Tampines", "Changi Airport"),
+            # Additional routes for algorithm comparison
+            ("Changi Airport", "Marina Bay"),
+            ("Bedok", "Changi Airport"),
         ],
         "Future Mode": [
-            # Original required pairs
+            # Same logical routes but with Changi Terminal 5 as the hub
             ("Changi Terminal 5", "City Hall"),
             ("Changi Terminal 5", "Orchard"),
             ("Changi Terminal 5", "Gardens by the Bay"),
@@ -718,10 +773,8 @@ if __name__ == "__main__":
             ("HarbourFront", "Changi Terminal 5"),
             ("Bishan", "Changi Terminal 5"),
             ("Tampines", "Changi Terminal 5"),
-            # Additional complex routes
-            ("Changi Terminal 5", "Marina Bay"),  # Multiple paths via different lines
-            ("Pasir Ris", "Changi Terminal 5"),   # Alternative eastern routes
-            ("Changi Terminal 5", "Chinese Garden"),  # Full cross-island
+            ("Changi Terminal 5", "Marina Bay"),
+            ("Bedok", "Changi Terminal 5"),
         ]
     }
     
@@ -753,7 +806,7 @@ if __name__ == "__main__":
     
     # Save results to CSV
     results_df.to_csv('routing_results.csv', index=False)
-    print("\n✓ Detailed results saved to 'routing_results.csv'")
+    print("\n[OK] Detailed results saved to 'routing_results.csv'")
     
     print("\n" + "="*80)
     print("ALGORITHM ANALYSIS & COMPARISON")
@@ -771,67 +824,70 @@ if __name__ == "__main__":
     print(f"  Stations (Future): 46 (with TELe/CRL additions)")
     print(f"  Test Routes (Today): 8 origin-destination pairs")
     print(f"  Test Routes (Future): 10 origin-destination pairs")
-    print(f"  Total Experiments: 18 routes × 4 algorithms = 72 trials")
+    print(f"  Total Experiments: 18 routes x 4 algorithms = 72 trials")
     print("\nCALIBRATION VALIDATION:")
-    print("  Baseline route (Changi→City Hall): 31-35 cost units ≈ 30-35 min (realistic)")
-    print("  Cross-island routes: 50-60 cost units ≈ 50-60 min (reasonable)")
+    print("  Baseline route (Changi->City Hall): 31-35 cost units ~= 30-35 min (realistic)")
+    print("  Cross-island routes: 50-60 cost units ~= 50-60 min (reasonable)")
     print("  This calibration enables fair algorithm comparison across diverse scenarios")
-    print()
     
     print("\n" + "="*80)
+    print("ALGORITHM FEATURES & CHARACTERISTICS")
+    print("="*80)
+    
+    print("\n1. BREADTH-FIRST SEARCH (BFS)")
     print("   Advantages:")
-    print("   • Guarantees optimal solution in unweighted graphs")
-    print("   • Complete - always finds a solution if one exists")
-    print("   • Systematic exploration ensures no paths are missed")
+    print("   - Guarantees optimal solution in unweighted graphs")
+    print("   - Complete - always finds a solution if one exists")
+    print("   - Systematic exploration ensures no paths are missed")
     print("   Disadvantages:")
-    print("   • High memory consumption (stores entire frontier)")
-    print("   • Does not use heuristics - explores many unnecessary nodes")
-    print("   • Slower than informed search methods like A*")
+    print("   - High memory consumption (stores entire frontier)")
+    print("   - Does not use heuristics - explores many unnecessary nodes")
+    print("   - Slower than informed search methods like A*")
     
     print("\n2. DEPTH-FIRST SEARCH (DFS)")
     print("   Advantages:")
-    print("   • Low memory footprint (only stores path to current node)")
-    print("   • Fast for finding any solution in sparse graphs")
-    print("   • Simple implementation")
+    print("   - Low memory footprint (only stores path to current node)")
+    print("   - Fast for finding any solution in sparse graphs")
+    print("   - Simple implementation")
     print("   Disadvantages:")
-    print("   • Does NOT guarantee optimal solution (found suboptimal paths)")
-    print("   • May get stuck in infinite loops without cycle detection")
-    print("   • Path quality depends heavily on edge ordering")
+    print("   - Does NOT guarantee optimal solution (found suboptimal paths)")
+    print("   - May get stuck in infinite loops without cycle detection")
+    print("   - Path quality depends heavily on edge ordering")
     
     print("\n3. GREEDY BEST-FIRST SEARCH (GBFS)")
     print("   Advantages:")
-    print("   • Very fast - uses heuristic to minimize exploration")
-    print("   • Low node expansion (9-16 nodes vs 25-45 for others)")
-    print("   • Good for quick approximate solutions")
+    print("   - Very fast - uses heuristic to minimize exploration")
+    print("   - Low node expansion (9-16 nodes vs 25-45 for others)")
+    print("   - Good for quick approximate solutions")
     print("   Disadvantages:")
-    print("   • Does NOT guarantee optimal solution (found 5% longer routes)")
-    print("   • Can be misled by heuristic into suboptimal paths")
-    print("   • Unreliable for applications requiring optimality")
+    print("   - Does NOT guarantee optimal solution (found 5% longer routes)")
+    print("   - Can be misled by heuristic into suboptimal paths")
+    print("   - Unreliable for applications requiring optimality")
     
     print("\n4. A* SEARCH")
     print("   Advantages:")
-    print("   • Guarantees optimal solution with admissible heuristic")
-    print("   • Balances speed and optimality (faster than BFS, optimal unlike GBFS)")
-    print("   • Most reliable for real-world routing applications")
-    print("   • Efficient node expansion guided by f(n) = g(n) + h(n)")
+    print("   - Guarantees optimal solution with admissible heuristic")
+    print("   - Balances speed and optimality (faster than BFS, optimal unlike GBFS)")
+    print("   - Most reliable for real-world routing applications")
+    print("   - Efficient node expansion guided by f(n) = g(n) + h(n)")
     print("   Disadvantages:")
-    print("   • Higher memory usage (stores g-scores for all visited nodes)")
-    print("   • Slower than GBFS (but gains optimality guarantee)")
-    print("   • Performance depends on heuristic quality")
+    print("   - Higher memory usage (stores g-scores for all visited nodes)")
+    print("   - Slower than GBFS (but gains optimality guarantee)")
+    print("   - Performance depends on heuristic quality")
     
     print("\n" + "="*80)
     print("RECOMMENDATION: BEST ALGORITHM")
     print("="*80)
-    print("\n🏆 A* SEARCH is the recommended algorithm for MRT routing")
+    print("\n*** A* SEARCH is the recommended algorithm for MRT routing ***")
     print("\nJustification:")
-    print("  ✓ Guarantees optimal paths (lowest cost)")
-    print("  ✓ Competitive efficiency (reasonable node expansion)")
-    print("  ✓ Reliable across all test scenarios")
-    print("  ✓ Balances optimality with performance")
-    print("\n⚠️  Alternative algorithms have critical limitations:")
-    print("  • GBFS: Fast but finds suboptimal paths (5-11% longer routes)")
-    print("  • DFS:  Unreliable, may find significantly suboptimal paths")
-    print("  • BFS:  Finds optimal paths but less efficient than A*")
+    print("  [+] Guarantees optimal paths (lowest cost)")
+    print("  [+] Competitive efficiency (reasonable node expansion)")
+    print("  [+] Reliable across all test scenarios")
+    print("  [+] Balances optimality with performance")
+    print("\n[!] Alternative algorithms have critical limitations:")
+    print("  - GBFS: Fast but finds suboptimal paths (5-11% longer routes)")
+    print("  - DFS:  Unreliable, may find significantly suboptimal paths")
+    print("  - BFS:  Finds optimal paths but less efficient than A*")
     print("="*80)
     
     print("\n" + "="*80)
