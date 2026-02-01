@@ -1,73 +1,73 @@
 Mode,Start,Goal,Algorithm,Path Length,Path Cost,Nodes Expanded,Runtime (us),Path
-Today Mode,Changi Airport,City Hall,BFS,10,31,33,89.3,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
-Today Mode,Changi Airport,City Hall,DFS,12,46,25,53.3,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall
-Today Mode,Changi Airport,City Hall,GBFS,12,43,16,127.9,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall
-Today Mode,Changi Airport,City Hall,A*,10,31,28,104.0,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
-Today Mode,Changi Airport,Orchard,BFS,13,43,63,206.1,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Today Mode,Changi Airport,Orchard,DFS,15,58,66,222.1,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Today Mode,Changi Airport,Orchard,GBFS,15,55,20,101.6,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Today Mode,Changi Airport,Orchard,A*,13,43,63,223.1,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Today Mode,Changi Airport,Gardens by the Bay,BFS,11,34,42,67.5,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
-Today Mode,Changi Airport,Gardens by the Bay,DFS,13,49,26,55.5,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay
-Today Mode,Changi Airport,Gardens by the Bay,GBFS,11,41,11,72.3,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Gardens by the Bay
-Today Mode,Changi Airport,Gardens by the Bay,A*,11,34,31,115.7,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
-Today Mode,Paya Lebar,Changi Airport,BFS,6,22,29,45.7,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Paya Lebar,Changi Airport,DFS,6,22,92,101.2,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Paya Lebar,Changi Airport,GBFS,6,22,6,45.3,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Paya Lebar,Changi Airport,A*,6,22,47,166.8,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,HarbourFront,Changi Airport,BFS,15,46,84,122.6,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,HarbourFront,Changi Airport,DFS,19,71,64,95.9,HarbourFront -> Telok Blangah -> Outram Park -> Chinatown -> Raffles Place -> Marina Bay -> Gardens by the Bay -> City Hall -> Bugis -> Downtown -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,HarbourFront,Changi Airport,GBFS,15,54,19,149.2,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> Marina Bay -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,HarbourFront,Changi Airport,A*,15,46,86,217.1,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bishan,Changi Airport,BFS,17,55,82,141.4,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bishan,Changi Airport,DFS,21,73,49,104.1,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Gardens by the Bay -> Marina Bay -> Bayfront -> Downtown -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bishan,Changi Airport,GBFS,17,55,22,132.7,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bishan,Changi Airport,A*,17,55,91,265.9,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Tampines,Changi Airport,BFS,4,19,12,45.7,Tampines -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Tampines,Changi Airport,DFS,4,19,89,115.1,Tampines -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Tampines,Changi Airport,GBFS,5,18,8,34.7,Tampines -> Simei -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Tampines,Changi Airport,A*,5,18,17,49.0,Tampines -> Simei -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Changi Airport,Marina Bay,BFS,10,39,36,66.9,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
-Today Mode,Changi Airport,Marina Bay,DFS,14,51,27,48.8,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay -> Marina Bay
-Today Mode,Changi Airport,Marina Bay,GBFS,10,39,10,71.9,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
-Today Mode,Changi Airport,Marina Bay,A*,12,35,36,149.5,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Raffles Place -> Marina Bay
-Today Mode,Bedok,Changi Airport,BFS,4,17,10,34.3,Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bedok,Changi Airport,DFS,4,17,92,130.5,Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bedok,Changi Airport,GBFS,4,17,4,40.5,Bedok -> Tanah Merah -> Expo -> Changi Airport
-Today Mode,Bedok,Changi Airport,A*,4,17,24,58.8,Bedok -> Tanah Merah -> Expo -> Changi Airport
-Future Mode,Changi Terminal 5,City Hall,BFS,10,31,43,129.3,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
-Future Mode,Changi Terminal 5,City Hall,DFS,12,46,25,53.9,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall
-Future Mode,Changi Terminal 5,City Hall,GBFS,12,43,17,81.0,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall
-Future Mode,Changi Terminal 5,City Hall,A*,11,30,37,84.8,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
-Future Mode,Changi Terminal 5,Orchard,BFS,13,43,73,82.0,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Future Mode,Changi Terminal 5,Orchard,DFS,15,58,66,58.1,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Future Mode,Changi Terminal 5,Orchard,GBFS,15,55,21,156.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Future Mode,Changi Terminal 5,Orchard,A*,14,42,73,146.6,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
-Future Mode,Changi Terminal 5,Gardens by the Bay,BFS,11,34,52,60.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
-Future Mode,Changi Terminal 5,Gardens by the Bay,DFS,13,49,26,35.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay
-Future Mode,Changi Terminal 5,Gardens by the Bay,GBFS,11,41,11,60.0,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Gardens by the Bay
-Future Mode,Changi Terminal 5,Gardens by the Bay,A*,12,33,41,154.8,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
-Future Mode,Paya Lebar,Changi Terminal 5,BFS,6,22,34,40.2,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
-Future Mode,Paya Lebar,Changi Terminal 5,DFS,7,26,85,72.3,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,Paya Lebar,Changi Terminal 5,GBFS,7,26,7,37.5,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,Paya Lebar,Changi Terminal 5,A*,7,21,38,97.4,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
-Future Mode,HarbourFront,Changi Terminal 5,BFS,15,46,89,72.2,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
-Future Mode,HarbourFront,Changi Terminal 5,DFS,20,75,57,58.4,HarbourFront -> Telok Blangah -> Outram Park -> Chinatown -> Raffles Place -> Marina Bay -> Gardens by the Bay -> City Hall -> Bugis -> Downtown -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,HarbourFront,Changi Terminal 5,GBFS,16,58,20,87.0,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> Marina Bay -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,HarbourFront,Changi Terminal 5,A*,16,45,84,461.6,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
-Future Mode,Bishan,Changi Terminal 5,BFS,17,55,87,78.2,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
-Future Mode,Bishan,Changi Terminal 5,DFS,22,77,42,74.3,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Gardens by the Bay -> Marina Bay -> Bayfront -> Downtown -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,Bishan,Changi Terminal 5,GBFS,18,59,24,175.5,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,Bishan,Changi Terminal 5,A*,18,54,88,309.9,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
-Future Mode,Tampines,Changi Terminal 5,BFS,2,9,5,31.2,Tampines -> Changi Terminal 5
-Future Mode,Tampines,Changi Terminal 5,DFS,2,9,2,20.9,Tampines -> Changi Terminal 5
-Future Mode,Tampines,Changi Terminal 5,GBFS,2,9,2,31.6,Tampines -> Changi Terminal 5
-Future Mode,Tampines,Changi Terminal 5,A*,2,9,8,45.3,Tampines -> Changi Terminal 5
-Future Mode,Changi Terminal 5,Marina Bay,BFS,10,39,46,108.0,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
-Future Mode,Changi Terminal 5,Marina Bay,DFS,14,51,27,44.9,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay -> Marina Bay
-Future Mode,Changi Terminal 5,Marina Bay,GBFS,10,39,10,69.3,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
-Future Mode,Changi Terminal 5,Marina Bay,A*,13,34,46,174.3,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Raffles Place -> Marina Bay
-Future Mode,Bedok,Changi Terminal 5,BFS,4,17,15,30.8,Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
-Future Mode,Bedok,Changi Terminal 5,DFS,5,21,85,70.5,Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,Bedok,Changi Terminal 5,GBFS,5,21,5,29.1,Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
-Future Mode,Bedok,Changi Terminal 5,A*,5,16,21,80.8,Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
+Today Mode,Changi Airport,City Hall,BFS,10,31,33,22.2,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
+Today Mode,Changi Airport,City Hall,DFS,12,46,25,19.2,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall
+Today Mode,Changi Airport,City Hall,GBFS,12,43,16,34.4,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall
+Today Mode,Changi Airport,City Hall,A*,10,31,28,24.4,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
+Today Mode,Changi Airport,Orchard,BFS,13,43,63,38.4,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Today Mode,Changi Airport,Orchard,DFS,15,58,66,28.0,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Today Mode,Changi Airport,Orchard,GBFS,15,55,20,36.0,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Today Mode,Changi Airport,Orchard,A*,13,43,63,53.0,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Today Mode,Changi Airport,Gardens by the Bay,BFS,11,34,42,19.0,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
+Today Mode,Changi Airport,Gardens by the Bay,DFS,13,49,26,43.9,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay
+Today Mode,Changi Airport,Gardens by the Bay,GBFS,11,41,11,21.8,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Gardens by the Bay
+Today Mode,Changi Airport,Gardens by the Bay,A*,11,34,31,32.7,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
+Today Mode,Paya Lebar,Changi Airport,BFS,6,22,29,15.9,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Paya Lebar,Changi Airport,DFS,6,22,92,28.4,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Paya Lebar,Changi Airport,GBFS,6,22,6,96.9,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Paya Lebar,Changi Airport,A*,6,22,47,45.6,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,HarbourFront,Changi Airport,BFS,15,46,84,31.9,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,HarbourFront,Changi Airport,DFS,19,71,64,29.7,HarbourFront -> Telok Blangah -> Outram Park -> Chinatown -> Raffles Place -> Marina Bay -> Gardens by the Bay -> City Hall -> Bugis -> Downtown -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,HarbourFront,Changi Airport,GBFS,15,54,19,33.6,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> Marina Bay -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,HarbourFront,Changi Airport,A*,15,46,86,63.3,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bishan,Changi Airport,BFS,17,55,82,28.2,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bishan,Changi Airport,DFS,21,73,49,22.4,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Gardens by the Bay -> Marina Bay -> Bayfront -> Downtown -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bishan,Changi Airport,GBFS,17,55,22,31.9,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bishan,Changi Airport,A*,17,55,91,65.1,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Tampines,Changi Airport,BFS,4,19,12,6.6,Tampines -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Tampines,Changi Airport,DFS,4,19,89,29.1,Tampines -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Tampines,Changi Airport,GBFS,5,18,8,11.6,Tampines -> Simei -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Tampines,Changi Airport,A*,5,18,17,48.5,Tampines -> Simei -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Changi Airport,Marina Bay,BFS,10,39,36,33.9,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
+Today Mode,Changi Airport,Marina Bay,DFS,14,51,27,11.0,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay -> Marina Bay
+Today Mode,Changi Airport,Marina Bay,GBFS,10,39,10,15.2,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
+Today Mode,Changi Airport,Marina Bay,A*,12,35,36,40.5,Changi Airport -> Expo -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Raffles Place -> Marina Bay
+Today Mode,Bedok,Changi Airport,BFS,4,17,10,10.7,Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bedok,Changi Airport,DFS,4,17,92,30.9,Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bedok,Changi Airport,GBFS,4,17,4,12.3,Bedok -> Tanah Merah -> Expo -> Changi Airport
+Today Mode,Bedok,Changi Airport,A*,4,17,24,19.4,Bedok -> Tanah Merah -> Expo -> Changi Airport
+Future Mode,Changi Terminal 5,City Hall,BFS,10,31,43,17.5,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
+Future Mode,Changi Terminal 5,City Hall,DFS,12,46,25,10.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall
+Future Mode,Changi Terminal 5,City Hall,GBFS,12,43,17,31.0,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall
+Future Mode,Changi Terminal 5,City Hall,A*,11,30,37,33.1,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall
+Future Mode,Changi Terminal 5,Orchard,BFS,13,43,73,22.1,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Future Mode,Changi Terminal 5,Orchard,DFS,15,58,66,23.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Future Mode,Changi Terminal 5,Orchard,GBFS,15,55,21,31.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Raffles Place -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Future Mode,Changi Terminal 5,Orchard,A*,14,42,73,48.6,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Dhoby Ghaut -> Somerset -> Orchard
+Future Mode,Changi Terminal 5,Gardens by the Bay,BFS,11,34,52,24.2,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
+Future Mode,Changi Terminal 5,Gardens by the Bay,DFS,13,49,26,9.7,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay
+Future Mode,Changi Terminal 5,Gardens by the Bay,GBFS,11,41,11,42.1,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay -> Gardens by the Bay
+Future Mode,Changi Terminal 5,Gardens by the Bay,A*,12,33,41,35.8,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Gardens by the Bay
+Future Mode,Paya Lebar,Changi Terminal 5,BFS,6,22,34,13.6,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
+Future Mode,Paya Lebar,Changi Terminal 5,DFS,7,26,85,25.0,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,Paya Lebar,Changi Terminal 5,GBFS,7,26,7,16.8,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,Paya Lebar,Changi Terminal 5,A*,7,21,38,37.2,Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
+Future Mode,HarbourFront,Changi Terminal 5,BFS,15,46,89,28.9,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
+Future Mode,HarbourFront,Changi Terminal 5,DFS,20,75,57,24.2,HarbourFront -> Telok Blangah -> Outram Park -> Chinatown -> Raffles Place -> Marina Bay -> Gardens by the Bay -> City Hall -> Bugis -> Downtown -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,HarbourFront,Changi Terminal 5,GBFS,16,58,20,27.7,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> Marina Bay -> Bayfront -> Promenade -> Nicoll Highway -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,HarbourFront,Changi Terminal 5,A*,16,45,84,54.8,HarbourFront -> Telok Blangah -> Outram Park -> Tanjong Pagar -> Raffles Place -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
+Future Mode,Bishan,Changi Terminal 5,BFS,17,55,87,30.9,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
+Future Mode,Bishan,Changi Terminal 5,DFS,22,77,42,20.6,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Gardens by the Bay -> Marina Bay -> Bayfront -> Downtown -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,Bishan,Changi Terminal 5,GBFS,18,59,24,29.5,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,Bishan,Changi Terminal 5,A*,18,54,88,62.1,Bishan -> Braddell -> Novena -> Newton -> Orchard -> Somerset -> Dhoby Ghaut -> City Hall -> Bugis -> Kallang -> Aljunied -> Paya Lebar -> Kembangan -> Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
+Future Mode,Tampines,Changi Terminal 5,BFS,2,9,5,5.8,Tampines -> Changi Terminal 5
+Future Mode,Tampines,Changi Terminal 5,DFS,2,9,2,2.7,Tampines -> Changi Terminal 5
+Future Mode,Tampines,Changi Terminal 5,GBFS,2,9,2,6.6,Tampines -> Changi Terminal 5
+Future Mode,Tampines,Changi Terminal 5,A*,2,9,8,11.2,Tampines -> Changi Terminal 5
+Future Mode,Changi Terminal 5,Marina Bay,BFS,10,39,46,18.0,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
+Future Mode,Changi Terminal 5,Marina Bay,DFS,14,51,27,10.4,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Downtown -> Bugis -> City Hall -> Gardens by the Bay -> Marina Bay
+Future Mode,Changi Terminal 5,Marina Bay,GBFS,10,39,10,22.8,Changi Terminal 5 -> Tampines -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Nicoll Highway -> Promenade -> Bayfront -> Marina Bay
+Future Mode,Changi Terminal 5,Marina Bay,A*,13,34,46,40.3,Changi Terminal 5 -> Tampines -> Simei -> Tanah Merah -> Bedok -> Kembangan -> Paya Lebar -> Aljunied -> Kallang -> Bugis -> City Hall -> Raffles Place -> Marina Bay
+Future Mode,Bedok,Changi Terminal 5,BFS,4,17,15,9.6,Bedok -> Tanah Merah -> Tampines -> Changi Terminal 5
+Future Mode,Bedok,Changi Terminal 5,DFS,5,21,85,32.5,Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,Bedok,Changi Terminal 5,GBFS,5,21,5,9.6,Bedok -> Tanah Merah -> Expo -> Changi Airport -> Changi Terminal 5
+Future Mode,Bedok,Changi Terminal 5,A*,5,16,21,19.0,Bedok -> Tanah Merah -> Simei -> Tampines -> Changi Terminal 5
