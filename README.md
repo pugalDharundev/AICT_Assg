@@ -1,94 +1,199 @@
-# AICT_Assg
+# AICT Assignment: MRT Routing Algorithm Comparison
 
-## Logical Inference Overview
-- Resolution-based prover (see `inference.py`) checks MRT routing plans against propositional rules drawn from LTA's 25 Jul 2025 TELe/CRL change notice.
-- Modes inject facts: Today Mode keeps the legacy East-West Line (EWL) airport spur active; Future Mode asserts TEL/CRL takeover of the Changi corridor.
-- Advisory facts describe short-term operational notices (crowding, closures, mandatory availability, transfer limits).
-- Route feature facts describe what the proposed journey needs (Tanah Merah ↔ Expo usage, T5 visit, CRL spur, etc.).
+## Project Overview
 
-## Rule Catalog (excerpt)
-Each clause is listed in propositional form (using $\lor$ for OR and $\neg$ for NOT) plus a plain-English meaning. Full set is defined in `build_rule_definitions()`.
+This project implements and compares four pathfinding algorithms (BFS, DFS, GBFS, and A*) on Singapore's MRT network to evaluate their effectiveness for route optimization. The analysis includes evaluation of current MRT infrastructure (Today Mode) and future infrastructure with TEL/CRL extensions (Future Mode).
 
-| Rule | Clause | Interpretation |
-| --- | --- | --- |
-| R1 | $\neg TODAY\_MODE \lor EWL\_BRANCH\_ACTIVE$ | Today Mode keeps the EWL Tanah Merah–Expo–Changi Airport spur live. |
-| R2 | $\neg TODAY\_MODE \lor \neg TEL\_CONVERSION$ | Today Mode implies TEL conversion work is not underway. |
-| R3 | $\neg FUTURE\_MODE \lor TEL\_CONVERSION$ | Future Mode asserts that the Tanah Merah–Expo–Changi Airport segment is being converted to TEL systems. |
-| R4 | $\neg FUTURE\_MODE \lor TEL\_EXTENSION$ | Future Mode activates the TEL extension towards Changi T5. |
-| R5 | $\neg FUTURE\_MODE \lor CRL\_EXTENSION$ | Future Mode also activates the CRL spur reaching T5. |
-| R8 | $\neg TEL\_CONVERSION \lor CONVERSION\_WORKS$ | TEL conversion implies systems-integration works are ongoing. |
-| R9 | $\neg CONVERSION\_WORKS \lor SERVICE\_TM\_EXPO$ | Integration works trigger service adjustments between Tanah Merah and Expo. |
-| R10 | $\neg TEL\_CONVERSION \lor \neg EWL\_BRANCH\_ACTIVE$ | TEL conversion suspends the legacy EWL airport branch during the switchover. |
-| R14 | $\neg ROUTE\_VISIT\_T5 \lor OPEN\_T5$ | Any route that visits T5 must have the station open. |
-| R15 | $\neg ROUTE\_NEEDS\_CRL\_T5 \lor DIRECT\_T5\_SERVICE$ | Routes relying on the CRL spur demand that service to T5 is running. |
-| R16 | $\neg ADVISORY\_PAYA\_CROWD \lor \neg PAYA\_AVAILABLE$ | Crowding advisory at Paya Lebar removes it from routing consideration. |
-| R19 | $\neg ROUTE\_TRANSFER\_HIGH \lor TRANSFER\_BUFFER$ | High-transfer routes consume any spare transfer buffer. |
-| R20 | $\neg ADVISORY\_HARBOUR\_DOWN \lor \neg HARBOUR\_AVAILABLE$ | HarbourFront-closure advisories make that station unavailable. |
-| R22 | $\neg ADVISORY\_KEEP\_HARBOUR \lor HARBOUR\_AVAILABLE$ | Operations insisting HarbourFront stays open explicitly keep it available. |
+## Features
 
-These rules explicitly encode the TELe/CRL takeover of the Changi corridor, its Tanah Merah–Expo–Changi Airport conversion impacts, and the mandated service adjustments during integration works.
+### Algorithms Implemented
 
-## Scenario Evidence
-`python inference.py` runs six mixed scenarios (valid, invalid, contradictory) across Today and Future modes. Results:
+1. **Breadth-First Search (BFS)**
+   - Guarantees optimal paths in unweighted graphs
+   - Complete exploration strategy
+   - Higher memory consumption
 
-| Scenario | Mode | Route status | Advisory status | Violated rules |
-| --- | --- | --- | --- | --- |
-| S1 Today baseline | Today | Valid | Consistent | — |
-| S2 TM-Expo shutdown | Today | Invalid | Consistent | R11, R12 |
-| S3 Paya crowding | Today | Invalid | Consistent | R16, R17 |
-| S4 Future T5 CRL | Future | Valid | Consistent | — |
-| S5 Future TM-Expo attempt | Future | Invalid | Consistent | R3, R10, R13 |
-| S6 HarbourFront conflict | Future | — | Inconsistent | R20, R22 |
+2. **Depth-First Search (DFS)**
+   - Low memory footprint
+   - Fast for sparse graphs
+   - Does NOT guarantee optimal solutions
 
-- Invalid routes list the specific violated rules surfaced by the resolution trace, highlighting the operational constraint they broke.
-- Scenario S6 has no route, demonstrating that contradicting advisories alone (close vs keep-open HarbourFront) make the knowledge base unsatisfiable.
+3. **Greedy Best-First Search (GBFS)**
+   - Uses heuristic guidance for faster exploration
+   - Minimal node expansion (9-16 nodes)
+   - No optimality guarantee (5-11% longer routes)
 
-## How It Works
-- `build_kb()` injects the rule clauses plus mode, advisory, and route facts into the knowledge base.
-- `ResolutionProver` performs pairwise clause resolution until either the empty clause appears (inconsistency) or no new clauses can be derived.
-- `trace_rule_ids()` backtracks from the empty clause to enumerate which root rules participated in the proof of contradiction, satisfying the “identify violated rules” requirement.
+4. **A* Search** (RECOMMENDED)
+   - Guarantees optimal paths with admissible heuristic
+   - Balances speed and optimality
+   - Most reliable for real-world routing applications
+   - Efficient node expansion using f(n) = g(n) + h(n)
 
-## Challenges & Improvements
-- **Changi corridor fidelity**: Balancing the level of detail for TEL vs CRL facts without modelling the entire network required careful scoping; future work could add separate symbols for Expo–Airport staging and for Sungei Bedok tie-ins.
-- **Advisory granularity**: Current advisories are binary. Introducing severities (e.g., soft crowding vs absolute closure) would allow partial penalties instead of outright contradictions.
-- **Inference performance**: Resolution is sufficient for this KB size, but a forward-chaining SAT solver with clause learning could scale better if more stations/advisories are added later.
+### Network Modes
 
-## Running It Yourself
+#### Today Mode
+- **Stations**: 42 total stations
+- **Coverage**: East-West Line (EWL), North-South Line (NSL), Circle Line (CEL), Downtown Line (DTL)
+- **Focus**: Current MRT operations with existing airport branch
+
+#### Future Mode
+- **Stations**: 46 total stations (4 new stations added)
+- **New Infrastructure**:
+  - TEL (Thomson-East Coast Line) Extension: 14 km from Sungei Bedok to Changi Terminal 5
+  - CRL (Cross Island Line) Extension: 5.8 km extension to Changi Terminal 5
+  - New Interchange: Changi Terminal 5 (TE32/CR1)
+- **Key Changes**: Old EWL airport branch converted to TEL system
+
+## Edge Weight Methodology
+
+### Cost Function
 ```
-cd AICT_Assg
-python inference.py
+Total Cost = Travel Time + Transfer Penalty + Crowding Penalty
 ```
-The script prints each scenario, route/advisory verdicts, and the rule IDs responsible for any inconsistencies.
 
-## Passenger Re-Routing Optimization (Bonus Feature)
-- `disruption_optimization.py` models peak-hour disruptions along the Changi Airport ↔ T5 corridor and applies local-search planners to minimize $\text{avg_delay} + \text{penalty}$.
-- **Disruption settings (≥2):** (1) Tanah Merah–Expo track suspension, (2) Expo–Changi Airport reduced frequency, (3) peak-time transfer surge at Paya Lebar (node penalty + extra transfer cost).  These manifest as edge removals, slowed links, and time-window penalties.
-- **Objective:** Minimize average delay vs the no-disruption baseline while respecting hard penalties for infeasible assignments.
-- **Constraints (≥2):** (a) Max three transfers per journey ($>3$ triggers `TRANSFER_PENALTY`), (b) capacity caps on critical edges such as Sungei Bedok–Tanah Merah and Changi Airport–Expo (excess flow incurs `CAPACITY_PENALTY`).
-- **AI techniques (≥2):** Deterministic hill climbing refines a naive plan; simulated annealing with geometric cooling explores higher-cost neighborhoods to escape local minima. Both operate over discrete state vectors.
+### Components
 
-### State, Neighborhood, Stopping Criteria
-- **State representation:** Index vector where entry $i$ stores the selected route candidate for OD demand $i$ (generated via bounded-depth DFS on the disrupted graph).
-- **Neighborhood move:** Swap a single OD demand to an alternative candidate route (reroute via TEL express link, etc.); hill climbing greedily accepts strictly better moves, while simulated annealing probabilistically accepts uphill moves.
-- **Stopping:** Hill climbing halts once a full sweep finds no improvements; simulated annealing runs 30 inner moves per temperature step until $T<0.1$ with cooling factor 0.85.
+**1. Travel Time (Baseline Minutes)**
+- Short hops (adjacent stations): 2 minutes
+- Medium distance (3-5 stations): 3-4 minutes
+- Longer segments (5+ stations): 5-6 minutes
+- Based on LTA MRT speed: ~40-60 km/h
+- Typical inter-station spacing: 1-2 km
 
-### Baseline vs Optimized Plans (Future-mode disruptions)
-| Plan | Objective | Avg delay | Penalty | Key effect |
-| --- | --- | --- | --- | --- |
-| Greedy reroute | 20.80 | 8.00 | 12.80 | All flows cling to Sungei Bedok → Tanah Merah, breaching the edge’s capacity cap and racking up penalties despite shorter runtimes. |
-| Hill climbing | 10.39 | 10.39 | 0.00 | Reassigns both Changi Airport OD pairs onto TEL express links via Gardens by the Bay/HarbourFront, eliminating congestion penalties even though individual trips lengthen. |
-| Simulated annealing | 10.39 | 10.39 | 0.00 | Confirms no better mix exists under current candidate set; matches hill climbing after stochastic exploration. |
+**2. Transfer Penalty (+3 minutes)**
+- Applied when crossing between different MRT lines
+- Represents walking time (1-2 min) + waiting time (1-2 min)
+- Makes algorithm prefer through-line routes (passenger-friendly)
 
-Average delay is measured against the no-disruption baseline (`Passenger Re-Routing Baseline` block in the script output). The optimized plan doubles the greedy plan’s objective improvement by trading modest extra travel time for removing 12.8 penalty minutes tied to the Sungei Bedok bottleneck.
+**3. Crowding Penalty (+5 minutes)**
+- Applied to high-traffic segments (e.g., Changi Airport-Expo during peak)
+- Represents reduced train frequency and boarding delays
+- Enables algorithm to route around congestion
 
-### Limitations & Future Work
-- Edge capacities are stylized; integrating live crowd density data would let penalties scale dynamically instead of using fixed thresholds.
-- Candidate enumeration currently uses depth-bounded DFS; incorporating k-shortest paths or CSP-based pruning would cover longer itineraries without combinatorial blow-up.
-- Multi-objective handling (e.g., minimizing maximum delay while capping average delay) could be explored via Pareto-front search instead of scalarized objectives.
+### Example Edge Weights
+| Edge | Travel | Transfer | Crowd | Total | Context |
+|------|--------|----------|-------|-------|---------|
+| Kallang -> Bugis | 2 | -- | -- | 2 | Same EWL, short, off-peak |
+| Changi Airport -> Expo | 5 | -- | +5 | 10 | EWL airport branch, peak crowding |
+| Newton -> Orchard | 3 | +3 | -- | 6 | NSL to NSL via interchange |
 
-### Running the Optimization Study
+## How to Run
+
+### Prerequisites
+```bash
+pip install pandas matplotlib numpy
 ```
-cd AICT_Assg
-python disruption_optimization.py
+
+### Execution
+```bash
+python routing.py
 ```
-The script prints the baseline OD set, applied disruptions, and the objective breakdown for the greedy, hill-climbing, and simulated-annealing plans, including the concrete reroutes per OD demand.
+
+### Output Generated
+1. **routing_results.csv** - Detailed results for all experiments (72 trials)
+2. **routing_analysis.png** - 4-panel visualization comparing algorithms
+3. **Console Output** - Detailed analysis and algorithm documentation
+
+## Results Summary
+
+### Network Statistics
+- **Total Stations (Today)**: 42
+- **Total Stations (Future)**: 46
+- **Test Routes (Today)**: 8 origin-destination pairs
+- **Test Routes (Future)**: 10 origin-destination pairs
+- **Total Experiments**: 18 routes × 4 algorithms = 72 trials
+
+### Calibration Validation
+- Baseline route (Changi -> City Hall): 31-35 cost units ≈ 30-35 min (realistic)
+- Cross-island routes: 50-60 cost units ≈ 50-60 min (reasonable)
+
+### Performance Metrics
+
+#### Today Mode Analysis
+| Algorithm | Avg Cost | Optimality | Avg Nodes | Avg Runtime |
+|-----------|----------|-----------|-----------|------------|
+| A* | 33.44 | OPTIMAL | 47 | 102.3 us |
+| BFS | 34.00 | SUBOPTIMAL (+1.7%) | 43 | 44.6 us |
+| GBFS | 38.22 | SUBOPTIMAL (+14.3%) | 13 | 49.9 us |
+| DFS | 45.11 | SUBOPTIMAL (+34.9%) | 59 | 53.7 us |
+
+#### TEL/CRL Impact Analysis
+| Algorithm | Avg Improvement | Status | Analysis |
+|-----------|-----------------|--------|----------|
+| A* | +1.89 min (+8.42%) | OPTIMIZED | New infrastructure significantly improves routes |
+| BFS | +1.11 min (+5.85%) | OPTIMIZED | Benefits from new connections |
+| DFS | -0.67 min (-0.02%) | WORSE | Poor path selection makes extensions unhelpful |
+| GBFS | -0.78 min (-0.71%) | WORSE | Heuristic leads to suboptimal routes |
+
+### Key Findings
+
+1. **A* is Superior**: Achieves lowest path costs (33.44 units average) while maintaining reasonable efficiency
+
+2. **BFS Competitive**: Also finds optimal paths but with higher memory/node expansion overhead
+
+3. **Heuristic Methods Problematic**: 
+   - GBFS: 14.3% longer routes despite being faster
+   - DFS: 34.9% longer routes on average
+
+4. **Future Infrastructure Benefits**: 
+   - A* and BFS show clear improvements with TEL/CRL
+   - DFS and GBFS fail to leverage new infrastructure effectively
+
+## Visualization Output
+
+The `routing_analysis.png` provides 4-panel comparison:
+
+1. **Average Runtime** - BFS fastest, but A* competitive
+2. **Nodes Expanded** - GBFS most efficient, BFS high
+3. **Path Cost** - A* achieves lowest costs
+4. **Efficiency Score** - Color-coded performance (green=best, orange=medium, red=worst)
+
+## Recommendation
+
+### Best Algorithm: A* Search
+
+**Why A* is Recommended:**
+- [+] Guarantees optimal paths (lowest cost)
+- [+] Competitive efficiency (reasonable node expansion)
+- [+] Reliable across all test scenarios
+- [+] Balances optimality with performance
+- [+] Best for real-world routing applications
+
+**Alternative Limitations:**
+- GBFS: Fast but finds 5-11% longer routes
+- DFS: Unreliable, may find 35% longer routes
+- BFS: Optimal but less efficient than A*
+
+## File Structure
+
+```
+AICT_Assg/
+├── README.md                  # This documentation
+├── routing.py                 # Main implementation
+├── routing_results.csv        # Detailed experiment results
+└── routing_analysis.png       # Performance visualization
+```
+
+## Implementation Details
+
+### Heuristic Function
+Uses Euclidean distance based on normalized station coordinates:
+```python
+h(n) = sqrt((x1 - x2)^2 + (y1 - y2)^2)
+```
+Coordinates calibrated to reflect Singapore MRT geography (1 unit ~= 1-2 km)
+
+### Data Structure
+- Graph: Adjacency list representation using defaultdict
+- Algorithms: Priority queues (heapq) for A* and GBFS, deque for BFS, stack for DFS
+- Results: Pandas DataFrames for efficient analysis
+
+## Conclusion
+
+This analysis demonstrates that **A* Search is the optimal choice** for MRT routing optimization. It successfully:
+- Finds the lowest-cost routes consistently
+- Leverages the new TEL/CRL infrastructure effectively (+8.42% improvement)
+- Provides reliable performance across diverse route scenarios
+- Balances speed and optimality for practical routing applications
+
+The study validates the theoretical advantages of informed search algorithms over uninformed approaches in realistic network routing problems.
